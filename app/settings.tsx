@@ -9,6 +9,11 @@ import { colors } from '@/theme/colors';
 import { ReminderSettings } from '@/types/models';
 
 type TimeTarget = 'briefing' | 'quietStart' | 'quietEnd' | null;
+const SNOOZE_PRESETS = [
+  { label: '30m', minutes: 30 },
+  { label: '1h', minutes: 60 },
+  { label: '3h', minutes: 180 }
+] as const;
 
 function hhmmToDate(value: string): Date {
   const [h, m] = value.split(':').map((part) => Number(part));
@@ -34,9 +39,6 @@ export default function SettingsScreen() {
 
   const [settings, setSettings] = React.useState<ReminderSettings>(current);
   const [timeTarget, setTimeTarget] = React.useState<TimeTarget>(null);
-  const [phoneNumber, setPhoneNumber] = React.useState(process.env.EXPO_PUBLIC_USER_PHONE_NUMBER || '');
-  const [reminderInterval, setReminderInterval] = React.useState(15);
-  const [snoozePreset, setSnoozePreset] = React.useState<'30m' | '1h' | '3h'>('30m');
 
   React.useEffect(() => {
     // Keep local form in sync if settings are changed elsewhere (e.g. future remote sync).
@@ -202,8 +204,8 @@ export default function SettingsScreen() {
                 </Text>
               </View>
               <TextInput
-                value={phoneNumber}
-                onChangeText={setPhoneNumber}
+                value={settings.phoneNumber}
+                onChangeText={(value) => setSettings((prev) => ({ ...prev, phoneNumber: value }))}
                 placeholder="(555) 123-4567"
                 placeholderTextColor="#7F8896"
                 keyboardType="phone-pad"
@@ -227,14 +229,14 @@ export default function SettingsScreen() {
                 <Text selectable allowFontScaling={false} style={styles.rowText}>
                   Reminder Interval
                 </Text>
-                <Badge text={`${reminderInterval}m`} />
+                <Badge text={`${settings.minSpacingMinutes}m`} />
               </RowBetween>
               <Slider
                 minimumValue={5}
                 maximumValue={60}
                 step={5}
-                value={reminderInterval}
-                onValueChange={setReminderInterval}
+                value={settings.minSpacingMinutes}
+                onValueChange={(value) => setSettings((prev) => ({ ...prev, minSpacingMinutes: value }))}
                 minimumTrackTintColor={colors.forest}
                 maximumTrackTintColor="#CDD3D8"
                 thumbTintColor={colors.forest}
@@ -381,12 +383,12 @@ export default function SettingsScreen() {
               Default options shown when snoozing.
             </Text>
             <View style={{ flexDirection: 'row', gap: 10 }}>
-              {(['30m', '1h', '3h'] as const).map((preset) => {
-                const active = snoozePreset === preset;
+              {SNOOZE_PRESETS.map((preset) => {
+                const active = settings.defaultSnoozeMinutes === preset.minutes;
                 return (
                   <Pressable
-                    key={preset}
-                    onPress={() => setSnoozePreset(preset)}
+                    key={preset.label}
+                    onPress={() => setSettings((prev) => ({ ...prev, defaultSnoozeMinutes: preset.minutes }))}
                     style={{
                       flex: 1,
                       borderRadius: 10,
@@ -402,12 +404,12 @@ export default function SettingsScreen() {
                       selectable
                       allowFontScaling={false}
                       style={{
-                        color: active ? 'white' : preset === '1h' ? colors.forest : '#704214',
+                        color: active ? 'white' : preset.label === '1h' ? colors.forest : '#704214',
                         fontSize: 16,
                         fontWeight: active ? '800' : '700'
                       }}
                     >
-                      {preset}
+                      {preset.label}
                     </Text>
                   </Pressable>
                 );

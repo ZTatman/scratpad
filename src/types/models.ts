@@ -14,6 +14,8 @@ export type Task = {
 };
 
 export type ReminderSettings = {
+  phoneNumber: string;
+  defaultSnoozeMinutes: number;
   remindersEnabled: boolean;
   dailyBriefingEnabled: boolean;
   dailyBriefingTime: string;

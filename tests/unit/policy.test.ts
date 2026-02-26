@@ -2,6 +2,8 @@ import { canSendReminder, isInQuietHours, passesMinSpacing } from '@/reminders/p
 import { ReminderSettings, ReminderStats, Task } from '@/types/models';
 
 const settings: ReminderSettings = {
+  phoneNumber: '+15550001111',
+  defaultSnoozeMinutes: 30,
   remindersEnabled: true,
   dailyBriefingEnabled: true,
   dailyBriefingTime: '08:00',
@@ -58,5 +60,18 @@ describe('policy', () => {
 
     expect(result.allowed).toBe(false);
     expect(result.reason).toBe('per_task_cap');
+  });
+
+  it('uses minSpacingMinutes to suppress early reminders', () => {
+    const nowMs = 1_000_000;
+    const result = canSendReminder({
+      now: new Date(nowMs),
+      settings: { ...settings, quietHoursStart: '23:59', quietHoursEnd: '00:00', minSpacingMinutes: 15 },
+      stats: { ...baseStats, lastSentAtMs: nowMs - 10 * 60 * 1000 },
+      task: pendingTask
+    });
+
+    expect(result.allowed).toBe(false);
+    expect(result.reason).toBe('min_spacing');
   });
 });
