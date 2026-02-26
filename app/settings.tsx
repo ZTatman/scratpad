@@ -9,6 +9,11 @@ import { colors } from '@/theme/colors';
 import { ReminderSettings } from '@/types/models';
 
 type TimeTarget = 'briefing' | 'quietStart' | 'quietEnd' | null;
+const SNOOZE_PRESETS = [
+  { label: '30m', minutes: 30 },
+  { label: '1h', minutes: 60 },
+  { label: '3h', minutes: 180 }
+] as const;
 
 function hhmmToDate(value: string): Date {
   const [h, m] = value.split(':').map((part) => Number(part));
@@ -51,12 +56,6 @@ export default function SettingsScreen() {
     await saveReminderSettings(settings);
     router.back();
   };
-
-  const snoozePresets = [
-    { label: '30m', minutes: 30 },
-    { label: '1h', minutes: 60 },
-    { label: '3h', minutes: 180 }
-  ] as const;
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F7F3', paddingTop: insets.top }}>
@@ -230,20 +229,14 @@ export default function SettingsScreen() {
                 <Text selectable allowFontScaling={false} style={styles.rowText}>
                   Reminder Interval
                 </Text>
-                <Badge text={`${settings.reminderIntervalMinutes}m`} />
+                <Badge text={`${settings.minSpacingMinutes}m`} />
               </RowBetween>
               <Slider
                 minimumValue={5}
                 maximumValue={60}
                 step={5}
-                value={settings.reminderIntervalMinutes}
-                onValueChange={(value) =>
-                  setSettings((prev) => ({
-                    ...prev,
-                    reminderIntervalMinutes: value,
-                    minSpacingMinutes: value
-                  }))
-                }
+                value={settings.minSpacingMinutes}
+                onValueChange={(value) => setSettings((prev) => ({ ...prev, minSpacingMinutes: value }))}
                 minimumTrackTintColor={colors.forest}
                 maximumTrackTintColor="#CDD3D8"
                 thumbTintColor={colors.forest}
@@ -390,7 +383,7 @@ export default function SettingsScreen() {
               Default options shown when snoozing.
             </Text>
             <View style={{ flexDirection: 'row', gap: 10 }}>
-              {snoozePresets.map((preset) => {
+              {SNOOZE_PRESETS.map((preset) => {
                 const active = settings.defaultSnoozeMinutes === preset.minutes;
                 return (
                   <Pressable

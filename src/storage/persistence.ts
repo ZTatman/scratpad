@@ -5,7 +5,6 @@ import { todayKey } from '@/lib/date';
 
 const DEFAULT_SETTINGS: ReminderSettings = {
   phoneNumber: process.env.EXPO_PUBLIC_USER_PHONE_NUMBER || '',
-  reminderIntervalMinutes: 15,
   defaultSnoozeMinutes: 30,
   remindersEnabled: true,
   dailyBriefingEnabled: true,
@@ -117,10 +116,6 @@ export function coerceSettings(settings: Partial<ReminderSettings> = {}): Remind
     ...DEFAULT_SETTINGS,
     ...settings,
     phoneNumber: String(settings.phoneNumber ?? DEFAULT_SETTINGS.phoneNumber).trim(),
-    reminderIntervalMinutes: Math.max(
-      5,
-      Number(settings.reminderIntervalMinutes ?? DEFAULT_SETTINGS.reminderIntervalMinutes)
-    ),
     defaultSnoozeMinutes: Math.max(5, Number(settings.defaultSnoozeMinutes ?? DEFAULT_SETTINGS.defaultSnoozeMinutes)),
     maxDailyReminders: Math.max(1, Number(settings.maxDailyReminders ?? DEFAULT_SETTINGS.maxDailyReminders)),
     maxRemindersPerTask: Math.max(1, Number(settings.maxRemindersPerTask ?? DEFAULT_SETTINGS.maxRemindersPerTask)),

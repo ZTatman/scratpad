@@ -7,7 +7,6 @@ describe('settings persistence defaults', () => {
     expect(merged.dailyBriefingTime).toBe(DEFAULT_SETTINGS.dailyBriefingTime);
     expect(merged.maxDailyReminders).toBe(DEFAULT_SETTINGS.maxDailyReminders);
     expect(merged.phoneNumber).toBe(DEFAULT_SETTINGS.phoneNumber);
-    expect(merged.reminderIntervalMinutes).toBe(DEFAULT_SETTINGS.reminderIntervalMinutes);
     expect(merged.defaultSnoozeMinutes).toBe(DEFAULT_SETTINGS.defaultSnoozeMinutes);
   });
 
@@ -23,15 +22,13 @@ describe('settings persistence defaults', () => {
     expect(merged.minSpacingMinutes).toBe(1);
   });
 
-  it('coerces phone/reminder interval/snooze settings', () => {
+  it('coerces phone and snooze settings', () => {
     const merged = coerceSettings({
       phoneNumber: '  +15551234567  ',
-      reminderIntervalMinutes: 1,
       defaultSnoozeMinutes: 0
     });
 
     expect(merged.phoneNumber).toBe('+15551234567');
-    expect(merged.reminderIntervalMinutes).toBe(5);
     expect(merged.defaultSnoozeMinutes).toBe(5);
   });
 });
