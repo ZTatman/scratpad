@@ -20,7 +20,6 @@ import {
 } from '@/storage/persistence';
 import { ReminderSettings, ReminderStats, RepeatType, Task } from '@/types/models';
 
-const DEFAULT_PHONE = process.env.EXPO_PUBLIC_USER_PHONE_NUMBER || '';
 const INBOUND_SYNC_COOLDOWN_MS = 3 * 60 * 1000;
 const PROCESSED_ACTION_TTL_MS = 24 * 60 * 60 * 1000;
 const PROCESSED_ACTION_MAX = 200;
@@ -40,7 +39,6 @@ export function pruneProcessedInboundActions(
     .slice(0, PROCESSED_ACTION_MAX);
   return Object.fromEntries(entries);
 }
-
 function nowIso(): string {
   return new Date().toISOString();
 }
@@ -205,7 +203,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     // Prompt the user by SMS to split an overloaded task into smaller subtasks.
     if (rolloverCount >= 3 && activeBreakdownTaskId) {
-      const phone = DEFAULT_PHONE;
+      const phone = get().settings.phoneNumber;
       const transport = get().transport === 'backend' ? new BackendSmsTransport() : new MockSmsTransport();
       const prompt = buildBreakdownPrompt(tasks[index]);
       try {
@@ -311,7 +309,8 @@ export const useAppStore = create<AppState>((set, get) => ({
         break;
       }
       case 'SNOOZE': {
-        const minutes = parsed.minutes && parsed.minutes > 0 ? parsed.minutes : 30;
+        const defaultMinutes = get().settings.defaultSnoozeMinutes;
+        const minutes = parsed.minutes && parsed.minutes > 0 ? parsed.minutes : defaultMinutes;
         const stats: ReminderStats = { ...get().stats, snoozeUntilMs: Date.now() + minutes * 60000 };
         set({ stats });
         await saveStats(stats);
@@ -405,7 +404,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   async runReminderTick() {
     const state = get();
-    const phone = DEFAULT_PHONE;
+    const phone = state.settings.phoneNumber;
     const transport = state.transport === 'backend' ? new BackendSmsTransport() : new MockSmsTransport();
 
     // Centralized scheduler: every tick reevaluates guardrails + due tasks and returns updated counters.
@@ -427,20 +426,21 @@ export const useAppStore = create<AppState>((set, get) => ({
   async syncInboundActions() {
     const state = get();
     if (state.transport !== 'backend') return;
-    if (!DEFAULT_PHONE) return;
+    const phone = state.settings.phoneNumber;
+    if (!phone) return;
     const nowMs = Date.now();
     if (!shouldSyncInboundActions(nowMs, state.stats.lastInboundSyncAtMs)) return;
 
     let processedIds = pruneProcessedInboundActions(state.stats.processedInboundActionIds, nowMs);
 
     try {
-      const actions = await fetchInboundActions(DEFAULT_PHONE);
+      const actions = await fetchInboundActions(phone);
       if (actions.length > 0) {
         const actionFailureLogs: string[] = [];
         for (const action of actions) {
           // If already applied before, only ACK to clear server queue.
           if (processedIds[action.id]) {
-            await ackInboundAction(DEFAULT_PHONE, action.id);
+            await ackInboundAction(phone, action.id);
             continue;
           }
 
@@ -448,7 +448,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             await get().applySmsBody(action.body);
             processedIds[action.id] = nowMs;
             processedIds = pruneProcessedInboundActions(processedIds, nowMs);
-            await ackInboundAction(DEFAULT_PHONE, action.id);
+            await ackInboundAction(phone, action.id);
           } catch (error) {
             const message = error instanceof Error ? error.message : 'unknown_error';
             actionFailureLogs.push(`sync_action_failed:${action.id}:${message}`);

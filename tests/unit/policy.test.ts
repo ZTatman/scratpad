@@ -2,6 +2,9 @@ import { canSendReminder, isInQuietHours, passesMinSpacing } from '@/reminders/p
 import { ReminderSettings, ReminderStats, Task } from '@/types/models';
 
 const settings: ReminderSettings = {
+  phoneNumber: '+15550001111',
+  reminderIntervalMinutes: 10,
+  defaultSnoozeMinutes: 30,
   remindersEnabled: true,
   dailyBriefingEnabled: true,
   dailyBriefingTime: '08:00',
