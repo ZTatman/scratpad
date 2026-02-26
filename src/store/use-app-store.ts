@@ -6,6 +6,7 @@ import { buildBreakdownPrompt } from '@/reminders/messages';
 import { evaluateReminderTick } from '@/reminders/scheduler';
 import { parseSmsCommand } from '@/sms/command-parser';
 import { BackendSmsTransport, MockSmsTransport } from '@/sms/client';
+import { ackInboundAction, fetchInboundActions } from '@/sms/inbound-sync';
 import {
   DEFAULT_SETTINGS,
   loadSettings,
@@ -58,6 +59,7 @@ type AppState = {
   applySmsBody: (body: string) => Promise<void>;
   applyBreakdownReply: (body: string) => Promise<void>;
   runReminderTick: () => Promise<void>;
+  syncInboundActions: () => Promise<void>;
 };
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -397,6 +399,33 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     set({ stats, logs: [...state.logs.slice(-100), ...logs] });
     await saveStats(stats);
+
+    await get().syncInboundActions();
+  },
+
+  async syncInboundActions() {
+    const state = get();
+    if (state.transport !== 'backend') return;
+    if (!DEFAULT_PHONE) return;
+
+    try {
+      const actions = await fetchInboundActions(DEFAULT_PHONE);
+      if (actions.length === 0) return;
+
+      for (const action of actions) {
+        await get().applySmsBody(action.body);
+        await ackInboundAction(DEFAULT_PHONE, action.id);
+      }
+
+      set((current) => ({
+        logs: [...current.logs.slice(-100), `synced_inbound_actions:${actions.length}`]
+      }));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'unknown_error';
+      set((current) => ({
+        logs: [...current.logs.slice(-100), `sync_inbound_failed:${message}`]
+      }));
+    }
   }
 }));
 
