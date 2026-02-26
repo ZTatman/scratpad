@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scrat Hibernation SMS</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "android-bg": "#FFFFFF",
+                        "android-surface": "#F1F3F4",
+                        "android-bubble-received": "#F1F3F4",
+                        "android-bubble-sent": "#E1F5FE",
+                        "android-text-primary": "#1F1F1F",
+                        "android-text-secondary": "#5F6368",
+                        "android-accent": "#1A73E8",
+                    },
+                    fontFamily: {
+                        "roboto": ["Roboto", "sans-serif"]
+                    },
+                },
+            },
+        }</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-white font-roboto text-android-text-primary antialiased h-screen flex justify-center">
+<div class="relative flex h-full w-full flex-col max-w-md bg-white border-x border-gray-100 shadow-2xl overflow-hidden">
+<div class="flex items-center justify-between px-6 pt-3 pb-2 text-xs font-medium text-android-text-secondary">
+<span>22:45</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">wifi</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">battery_full</span>
+</div>
+</div>
+<header class="flex items-center gap-4 px-4 py-3 bg-android-bg border-b border-gray-800/50">
+<button class="text-android-text-primary">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex items-center gap-3 flex-1">
+<div class="relative h-10 w-10 overflow-hidden rounded-full bg-gray-200 flex items-center justify-center">
+<img alt="Scrat" class="h-full w-full object-cover" src="https://storage.googleapis.com/uxp-artifacts/scrat_avatar.png"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-medium leading-tight">Scratpad 🐿️</h1>
+<p class="text-xs text-android-text-secondary">App Notification • System</p>
+</div>
+</div>
+<div class="flex items-center gap-4 text-android-text-primary">
+<span class="material-symbols-outlined">videocam</span>
+<span class="material-symbols-outlined">call</span>
+<span class="material-symbols-outlined">more_vert</span>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-hide">
+<div class="flex justify-center mb-6">
+<span class="text-xs font-medium text-android-text-secondary">Today 10:45 PM</span>
+</div>
+<div class="flex items-end gap-2 max-w-[85%] mb-4">
+<div class="h-8 w-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
+<img alt="Scratpad" class="h-full w-full object-cover" src="https://storage.googleapis.com/uxp-artifacts/scrat_avatar.png"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="group relative rounded-2xl rounded-bl-none px-4 py-3 text-[15px] leading-relaxed text-android-text-primary shadow-sm bg-amber-100">
+<p><span class="block text-[10px] font-bold uppercase tracking-wider text-amber-800 mb-1">Scratpad Hibernation</span>Time for hibernation! I am tucking the acorns away for the night. Quiet Hours are now active. No more nudges until morning. Rest up, you did great! 🌙</p>
+</div>
+<span class="text-[11px] text-android-text-secondary ml-1">10:45 PM</span>
+</div>
+</div>
+</main>
+<footer class="pb-6 pt-2 px-4 bg-android-bg">
+<div class="flex items-center gap-2">
+<div class="flex h-10 w-10 items-center justify-center rounded-full text-android-text-secondary">
+<span class="material-symbols-outlined">add_circle</span>
+</div>
+<div class="flex-1 flex items-center min-h-[44px] rounded-3xl bg-android-surface px-4 py-2">
+<span class="text-android-text-secondary text-sm">Text message</span>
+<span class="ml-auto material-symbols-outlined text-android-text-secondary text-xl">sentiment_satisfied</span>
+</div>
+<div class="flex h-10 w-10 items-center justify-center rounded-full text-android-text-secondary">
+<span class="material-symbols-outlined">mic</span>
+</div>
+</div>
+</footer>
+<div class="h-1 bg-white/20 w-32 mx-auto rounded-full mb-2"></div>
+</div>
+</body></html>

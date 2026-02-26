@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "ScratPad",
+    "slug": "scratpad",
+    "version": "1.0.0",
+    "scheme": "scratpad",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      "expo-notifications",
+      "@react-native-community/datetimepicker",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FDFBF7"
+      },
+      "package": "com.anonymous.scratpad"
+    }
+  }
+}

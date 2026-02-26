@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Scrat - Messages</title><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "android-bg": "#ffffff", "android-surface": "#f3f4f9", "android-bubble-rec": "#f2f2f2", "android-bubble-sent": "#ffead1", "android-primary": "#1a73e8", "android-text": "#1f1f1f", "android-text-sec": "#444746" }, fontFamily: { "body": ["Roboto", "sans-serif"] } } } }</script><style>body { min-height: 100dvh; font-family: 'Roboto', sans-serif; }.no-scrollbar::-webkit-scrollbar { display: none; }.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }</style></head>
+<body class="bg-android-bg text-android-text antialiased flex flex-col h-screen w-screen overflow-hidden">
+<!-- Android Status Bar -->
+<div class="w-full h-10 flex items-center justify-between px-6 bg-white">
+<div class="text-[14px] font-medium">8:01</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[18px]">battery_full</span>
+</div>
+</div>
+<!-- Google Messages Header -->
+<header class="flex items-center px-2 py-2 bg-white">
+<button class="p-2 hover:bg-gray-100 rounded-full">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<div class="flex flex-1 items-center ml-2">
+<div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-white text-[28px]">person</span>
+</div>
+<div class="flex flex-col ml-3 leading-tight">
+<div class="flex items-center gap-1">
+<span class="text-[18px] font-medium">Scrat 🐿️</span>
+</div>
+<span class="text-[12px] text-android-text-sec">Mobile • +1 (555) 019-2834</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-gray-100 rounded-full"><span class="material-symbols-outlined text-[24px]">videocam</span></button>
+<button class="p-2 hover:bg-gray-100 rounded-full"><span class="material-symbols-outlined text-[24px]">call</span></button>
+<button class="p-2 hover:bg-gray-100 rounded-full"><span class="material-symbols-outlined text-[24px]">more_vert</span></button>
+</div>
+</header>
+<!-- Chat Area -->
+<main class="flex-1 overflow-y-auto px-4 py-2 no-scrollbar bg-white">
+<div class="w-full flex justify-center my-6">
+<span class="text-[12px] font-medium text-android-text-sec">Today 8:00 AM</span>
+</div>
+<!-- Scrat's Briefing -->
+<div class="flex items-start gap-2 mb-8">
+<div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-white text-[18px]">person</span>
+</div>
+<div class="max-w-[80%] bg-android-bubble-rec p-4 rounded-[24px] rounded-tl-none">
+<p class="text-[16px] leading-relaxed mb-3">The sun is up and the acorns are waiting! Today's stash goal:</p>
+<ul class="list-none mb-3 text-[16px]">
+<li class="flex items-center gap-2 mb-1">• No Scratpad tasks today!</li>
+</ul>
+<p class="text-[16px] leading-relaxed mb-1">Your Scratpad is clear today! Let's enjoy the sun! 🌰</p>
+<div class="text-right mt-1">
+<span class="text-[11px] text-android-text-sec">8:00 AM</span>
+</div>
+</div>
+</div>
+<!-- User Response Mockup -->
+<div class="flex flex-col items-end mb-4">
+<div class="max-w-[80%] bg-android-bubble-sent p-4 rounded-[24px] rounded-tr-none">
+<p class="text-[16px]">Enjoy the extra breathing room! 🌿</p>
+<div class="flex items-center justify-end gap-1 mt-1">
+<span class="text-[11px] text-android-text-sec">8:02 AM</span>
+<span class="material-symbols-outlined text-[14px] text-android-text-sec">done_all</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Input -->
+<div class="px-4 py-4 bg-white">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center w-11 h-11 rounded-full bg-android-surface text-android-text-sec">
+<span class="material-symbols-outlined">add</span>
+</button>
+<div class="flex-1 flex items-center bg-android-surface rounded-full px-4 py-2.5">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-[16px] placeholder:text-android-text-sec" placeholder="Text message" type="text"/>
+<div class="flex items-center gap-3 ml-2 text-android-text-sec">
+<button><span class="material-symbols-outlined text-[24px]">sentiment_satisfied</span></button>
+<button><span class="material-symbols-outlined text-[24px]">mic</span></button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scratpad Archive</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "wood-brown": "#5D4037",
+                        "forest-green": "#2E7D32",
+                        "wood-light": "#8D6E63",
+                        "leaf-light": "#E8F5E9",
+                        "bg-cream": "#FDFBF7",
+                        "primary": "#5D4037", 
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #8D6E63;
+            border-radius: 20px;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F0] font-display text-wood-brown antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col mx-auto max-w-md bg-bg-cream shadow-2xl overflow-hidden border-x border-[#D7CCC8]">
+<header class="sticky top-0 z-20 flex items-center bg-bg-cream/95 backdrop-blur-sm px-6 pt-12 pb-4 border-b border-[#EFEBE9]">
+<button class="flex items-center justify-center -ml-2 p-2 rounded-full text-wood-brown hover:bg-[#EFEBE9] transition-colors focus:outline-none">
+<span class="material-symbols-outlined text-2xl font-bold">arrow_back</span>
+</button>
+<div class="ml-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-wood-brown text-3xl" style="font-variation-settings: 'FILL' 1;">edit_square</span>
+<h1 class="text-2xl font-extrabold tracking-tight text-wood-brown">Scratpad</h1>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto px-6 pb-12">
+<div class="mt-6">
+<div class="flex items-center gap-2 mb-4">
+<h2 class="text-xs font-bold uppercase tracking-wider text-forest-green">Today's Harvest</h2>
+<div class="h-px flex-1 bg-forest-green/20"></div>
+</div>
+<div class="space-y-3">
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-brown text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Mailed the package</p>
+<p class="text-xs text-wood-light">Added to the stash</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-brown text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Called mom</p>
+<p class="text-xs text-wood-light">Added to the stash</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-brown text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Drank 2L of water</p>
+<p class="text-xs text-wood-light">Added to the stash</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-10">
+<div class="flex items-center gap-2 mb-4">
+<h2 class="text-xs font-bold uppercase tracking-wider text-forest-green/80">Yesterday</h2>
+<div class="h-px flex-1 bg-forest-green/10"></div>
+</div>
+<div class="space-y-3">
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-90">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-green text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Submitted expense report</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-90">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-green text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Scheduled dentist appointment</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-10">
+<div class="flex items-center gap-2 mb-4">
+<h2 class="text-xs font-bold uppercase tracking-wider text-forest-green/80">October 20</h2>
+<div class="h-px flex-1 bg-forest-green/10"></div>
+</div>
+<div class="space-y-3">
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-80">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-light text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Walked the dog</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-80">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-light text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Paid electric bill</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-80">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-light text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Replied to Sarah's email</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-10">
+<div class="flex items-center gap-2 mb-4">
+<h2 class="text-xs font-bold uppercase tracking-wider text-forest-green/80">October 18</h2>
+<div class="h-px flex-1 bg-forest-green/10"></div>
+</div>
+<div class="space-y-3">
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-75">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-light text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Meal prep for week</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-75">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-light text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Deep cleaned the kitchen</p>
+</div>
+</div>
+<div class="group flex items-start gap-x-3 p-3 rounded-xl hover:bg-[#EFEBE9]/50 transition-colors opacity-75">
+<div class="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-wood-light text-[#FDFBF7] shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="flex flex-col pt-1">
+<p class="text-base font-medium text-wood-brown">Finished reading Chapter 4</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16 mb-8 flex flex-col items-center justify-center opacity-30">
+<span class="material-symbols-outlined text-wood-brown mb-2 text-2xl">forest</span>
+<div class="h-1 w-1 rounded-full bg-wood-brown mb-2"></div>
+<div class="h-1 w-1 rounded-full bg-wood-brown"></div>
+</div>
+</main>
+<div class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-bg-cream to-transparent"></div>
+</div>
+</body></html>

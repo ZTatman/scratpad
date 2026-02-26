@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Squirel! Task Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "forest-green": "#2D5A27",
+                        "forest-green-hover": "#23471F",
+                        "acorn-brown": "#8B4513",
+                        "acorn-brown-light": "#A05A2C",
+                        "background-light": "#ffffff",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }body {
+            height: 100vh;
+            overflow: hidden;}
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAF6] dark:bg-slate-950 font-display text-slate-900 dark:text-slate-100 antialiased selection:bg-forest-green/20 selection:text-forest-green h-full">
+<div class="relative flex h-full w-full flex-col max-w-md mx-auto shadow-2xl bg-white dark:bg-slate-900 border-x border-slate-100 dark:border-slate-800">
+<header class="flex-none flex items-center justify-between px-6 pt-6 pb-2 bg-white dark:bg-slate-900 z-50">
+<button class="p-2 -ml-2 hover:text-forest-green-hover dark:text-emerald-500 dark:hover:text-emerald-400 transition-colors rounded-full hover:bg-emerald-50 dark:hover:bg-slate-800 text-slate-600">
+<span class="material-symbols-outlined text-3xl font-bold">arrow_back</span>
+</button>
+<h1 class="text-lg font-extrabold dark:text-emerald-500 text-slate-900">Quick Scrat</h1>
+<div class="w-10"></div>
+</header>
+<div class="flex-1 overflow-y-auto no-scrollbar px-6 pb-40">
+<main class="flex flex-col gap-6 pt-2">
+<section class="mt-2">
+<label class="sr-only" for="task-title">Task Title</label>
+<textarea autofocus="" class="w-full resize-none bg-transparent text-4xl sm:text-5xl font-extrabold placeholder:text-slate-300 dark:placeholder:text-slate-600 text-slate-900 dark:text-white border-none p-0 focus:ring-0 leading-tight tracking-tight" id="task-title" placeholder="Start scratching..." rows="3"></textarea>
+</section>
+<section class="flex flex-col gap-3">
+<div class="flex items-center gap-2 dark:text-emerald-500 font-bold uppercase tracking-wider text-xs mb-1 text-slate-500">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+                        Due Date
+                    </div>
+<div class="bg-[#F8FAF6] dark:bg-slate-800/50 rounded-3xl p-1 flex gap-1 border border-emerald-100 dark:border-slate-800">
+<button class="flex-1 py-4 flex flex-col items-center justify-center rounded-2xl bg-white dark:bg-slate-700 shadow-md ring-1 ring-emerald-900/5 dark:ring-white/10 transition-all">
+<span class="text-xs font-bold text-acorn-brown dark:text-amber-500 uppercase tracking-wide mb-0.5">Today</span>
+<span class="text-2xl font-black text-slate-900 dark:text-white">Oct 24</span>
+</button>
+<button class="flex-1 py-4 flex flex-col items-center justify-center rounded-2xl hover:bg-white/50 dark:hover:bg-slate-700/50 transition-all text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300">
+<span class="text-xs font-bold uppercase tracking-wide mb-0.5">Tomorrow</span>
+<span class="text-2xl font-black">Oct 25</span>
+</button>
+<button class="flex-none w-16 flex items-center justify-center rounded-2xl hover:bg-white/50 dark:hover:bg-slate-700/50 transition-all text-slate-400 hover:text-acorn-brown dark:hover:text-amber-500">
+<span class="material-symbols-outlined text-3xl">edit_calendar</span>
+</button>
+</div>
+</section>
+<section class="flex flex-col gap-3">
+<div class="flex items-center gap-2 dark:text-emerald-500 font-bold uppercase tracking-wider text-xs mb-1 text-slate-500">
+<span class="material-symbols-outlined text-lg">schedule</span>
+                        Time
+                    </div>
+<div class="bg-[#F8FAF6] dark:bg-slate-800/50 rounded-3xl p-4 border border-emerald-100 dark:border-slate-800 h-36 relative overflow-hidden flex items-center justify-center">
+<div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-14 bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-emerald-100 dark:border-slate-600 pointer-events-none z-0"></div>
+<div class="flex w-full relative z-10 h-full">
+<div class="flex-1 overflow-y-auto no-scrollbar snap-y snap-mandatory text-center py-[44px]">
+<div class="snap-center h-14 flex items-center justify-center text-slate-300 text-2xl font-medium">08</div>
+<div class="snap-center h-14 flex items-center justify-center text-acorn-brown dark:text-amber-500 text-3xl font-black">09</div>
+<div class="snap-center h-14 flex items-center justify-center text-slate-300 text-2xl font-medium">10</div>
+</div>
+<div class="w-4 flex items-center justify-center text-slate-300 text-2xl font-bold pb-1">:</div>
+<div class="flex-1 overflow-y-auto no-scrollbar snap-y snap-mandatory text-center py-[44px]">
+<div class="snap-center h-14 flex items-center justify-center text-slate-300 text-2xl font-medium">00</div>
+<div class="snap-center h-14 flex items-center justify-center text-acorn-brown dark:text-amber-500 text-3xl font-black">15</div>
+<div class="snap-center h-14 flex items-center justify-center text-slate-300 text-2xl font-medium">30</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar snap-y snap-mandatory text-center py-[44px]">
+<div class="snap-center h-14 flex items-center justify-center text-acorn-brown dark:text-amber-500 text-2xl font-black bg-acorn-brown/10 dark:bg-amber-500/20 rounded-lg">AM</div>
+<div class="snap-center h-14 flex items-center justify-center text-slate-300 text-xl font-medium">PM</div>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-3 pb-8">
+<div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider text-xs mb-1 text-slate-500">
+<span class="material-symbols-outlined text-lg">event_repeat</span>
+                        Repeat
+                    </div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl flex flex-col gap-4">
+<div class="flex gap-2 overflow-x-auto no-scrollbar p-2 -m-2">
+<button class="flex-none px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-[#F8FAF6] dark:hover:bg-slate-800 transition-colors">
+                                None
+                            </button>
+<button class="flex-none px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-[#F8FAF6] dark:hover:bg-slate-800 transition-colors">
+                                Daily
+                            </button>
+<button class="flex-none px-5 py-2.5 rounded-full bg-acorn-brown dark:bg-amber-700 text-white shadow-md shadow-acorn-brown/20 text-sm font-bold transition-colors ring-2 ring-acorn-brown ring-offset-2 ring-offset-white dark:ring-offset-slate-900">
+                                Weekly
+                            </button>
+<button class="flex-none px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-[#F8FAF6] dark:hover:bg-slate-800 transition-colors">
+                                Monthly
+                            </button>
+</div>
+<div class="bg-[#F8FAF6] dark:bg-slate-800/50 p-2 rounded-2xl flex justify-between gap-1 border border-emerald-100 dark:border-slate-800 overflow-x-auto no-scrollbar">
+<button class="h-10 w-10 flex-none rounded-full bg-acorn-brown dark:bg-amber-700 text-white shadow-sm flex items-center justify-center text-sm font-bold">M</button>
+<button class="h-10 w-10 flex-none rounded-full bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-slate-600 flex items-center justify-center text-sm font-bold hover:text-acorn-brown dark:hover:text-amber-500 transition-colors hover:border-acorn-brown/30">T</button>
+<button class="h-10 w-10 flex-none rounded-full bg-acorn-brown dark:bg-amber-700 text-white shadow-sm flex items-center justify-center text-sm font-bold">W</button>
+<button class="h-10 w-10 flex-none rounded-full bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-slate-600 flex items-center justify-center text-sm font-bold hover:text-acorn-brown dark:hover:text-amber-500 transition-colors hover:border-acorn-brown/30">T</button>
+<button class="h-10 w-10 flex-none rounded-full bg-acorn-brown dark:bg-amber-700 text-white shadow-sm flex items-center justify-center text-sm font-bold">F</button>
+<button class="h-10 w-10 flex-none rounded-full bg-white dark:bg-slate-700 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-600 flex items-center justify-center text-sm font-bold hover:text-acorn-brown dark:hover:text-amber-500 transition-colors hover:border-acorn-brown/30">S</button>
+<button class="h-10 w-10 flex-none rounded-full bg-white dark:bg-slate-700 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-600 flex items-center justify-center text-sm font-bold hover:text-acorn-brown dark:hover:text-amber-500 transition-colors hover:border-acorn-brown/30">S</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<div class="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-white via-white to-transparent dark:from-slate-900 dark:via-slate-900 z-40 pointer-events-none h-32 flex items-end">
+<button class="w-full py-5 rounded-2xl hover:bg-forest-green-hover dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white font-extrabold text-lg shadow-xl dark:shadow-emerald-900/40 transition-all active:scale-[0.98] flex items-center justify-center gap-3 pointer-events-auto bg-slate-900 shadow-slate-900/20"><span class="material-symbols-outlined">edit_note</span> Save Scrat</button>
+</div>
+</div>
+</body></html>
