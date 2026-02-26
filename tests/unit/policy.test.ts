@@ -48,7 +48,7 @@ describe('policy', () => {
 
   it('blocks reminder when per-task cap reached', () => {
     const result = canSendReminder({
-      now: new Date('2026-02-19T11:00:00.000Z'),
+      now: new Date('2026-02-19T11:00:00'),
       settings,
       stats: { ...baseStats, perTaskSentToday: { 'task-1': 3 } },
       task: pendingTask
