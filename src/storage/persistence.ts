@@ -21,7 +21,9 @@ const DEFAULT_STATS = (): ReminderStats => ({
   lastSentAtMs: 0,
   quietHoursMessageSentToday: false,
   celebrationSentToday: false,
-  snoozeUntilMs: 0
+  snoozeUntilMs: 0,
+  lastInboundSyncAtMs: 0,
+  processedInboundActionIds: {}
 });
 
 type UiPrefs = {
@@ -74,7 +76,8 @@ export async function loadStats(): Promise<ReminderStats> {
   const merged: ReminderStats = {
     ...defaults,
     ...parsed,
-    perTaskSentToday: parsed.perTaskSentToday ?? {}
+    perTaskSentToday: parsed.perTaskSentToday ?? {},
+    processedInboundActionIds: parsed.processedInboundActionIds ?? {}
   };
 
   // Reminder counters are day-bound; once date changes we reset to avoid stale suppression.

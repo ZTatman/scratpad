@@ -1,4 +1,5 @@
 import { ParsedCommand, SmsWebhookPayload } from '../types.js';
+import { InboundActionStore } from '../store/inbound-action-store.js';
 
 export type TaskActionResult = {
   accepted: boolean;
@@ -9,11 +10,13 @@ export type TaskActionResult = {
 export class TaskActionService {
   constructor(
     private readonly callbackUrl: string | undefined,
-    private readonly callbackToken: string | undefined
+    private readonly callbackToken: string | undefined,
+    private readonly actionStore: InboundActionStore
   ) {}
 
   async handleInbound(payload: SmsWebhookPayload, action: ParsedCommand): Promise<TaskActionResult> {
     if (!this.callbackUrl) {
+      this.actionStore.enqueue(payload, action);
       return { accepted: action.type !== 'UNKNOWN', action, forwarded: false };
     }
 

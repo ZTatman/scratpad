@@ -93,6 +93,51 @@ Behavior:
 
 Returns TwiML ack when Twilio provider is configured.
 
+### `GET /app/inbound-actions`
+Returns queued inbound SMS actions for a specific phone number.
+
+Auth:
+
+- If `INTERNAL_API_TOKEN` is set, include `Authorization: Bearer <token>`
+
+Query params:
+
+- `from` (required): E.164 phone number
+- `limit` (optional): max number of actions to return, default `20`
+
+Response:
+
+```json
+{
+  "ok": true,
+  "actions": [
+    {
+      "id": "SMxxxx",
+      "from": "+15551234567",
+      "body": "1",
+      "receivedAt": "2026-02-19T12:00:00.000Z",
+      "parsed": { "type": "DONE" }
+    }
+  ]
+}
+```
+
+### `POST /app/inbound-actions/ack`
+Acknowledges and removes a queued inbound action after the app processes it.
+
+Auth:
+
+- If `INTERNAL_API_TOKEN` is set, include `Authorization: Bearer <token>`
+
+Request body:
+
+```json
+{
+  "from": "+15551234567",
+  "id": "SMxxxx"
+}
+```
+
 ## App Callback Payload (when enabled)
 
 ```json

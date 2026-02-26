@@ -3,11 +3,13 @@ import { parseInboundCommand } from './parsers/command-parser.js';
 import { canSendReminderWithGuardrails } from './services/reminder-policy-service.js';
 import { TaskActionService } from './services/task-action-service.js';
 import { TwilioSmsProvider } from './sms-provider/twilio.js';
+import { InboundActionStore } from './store/inbound-action-store.js';
 import { IdempotencyStore } from './store/idempotency-store.js';
 import { ReminderSettings, ReminderStats, SmsWebhookPayload } from './types.js';
 
 const app = express();
 const idempotency = new IdempotencyStore();
+const inboundActions = new InboundActionStore();
 
 const PORT = Number(process.env.PORT || 4000);
 const INTERNAL_API_TOKEN = process.env.INTERNAL_API_TOKEN || '';
@@ -27,7 +29,7 @@ const provider =
     ? new TwilioSmsProvider(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER)
     : undefined;
 
-const actionService = new TaskActionService(APP_CALLBACK_URL, APP_CALLBACK_TOKEN);
+const actionService = new TaskActionService(APP_CALLBACK_URL, APP_CALLBACK_TOKEN, inboundActions);
 
 app.use('/sms/webhook/inbound', express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -91,6 +93,33 @@ app.post('/sms/send', async (req, res) => {
   }
 });
 
+app.get('/app/inbound-actions', (req, res) => {
+  if (!requireInternalAuth(req, res)) return;
+  const from = typeof req.query.from === 'string' ? req.query.from : '';
+  const limitRaw = typeof req.query.limit === 'string' ? Number(req.query.limit) : 20;
+  const limit = Number.isFinite(limitRaw) ? limitRaw : 20;
+
+  if (!from) {
+    res.status(400).json({ ok: false, error: 'from is required' });
+    return;
+  }
+
+  const actions = inboundActions.list(from, limit);
+  res.json({ ok: true, actions });
+});
+
+app.post('/app/inbound-actions/ack', (req, res) => {
+  if (!requireInternalAuth(req, res)) return;
+  const { from, id } = req.body as { from?: string; id?: string };
+  if (!from || !id) {
+    res.status(400).json({ ok: false, error: 'from and id are required' });
+    return;
+  }
+
+  const acknowledged = inboundActions.ack(from, id);
+  res.json({ ok: true, acknowledged });
+});
+
 app.post('/sms/webhook/inbound', async (req, res) => {
   const messageSid = (req.body.MessageSid || req.body.SmsSid || '') as string;
   const from = (req.body.From || '') as string;
@@ -122,6 +151,7 @@ app.post('/sms/webhook/inbound', async (req, res) => {
   if (messageSid) idempotency.add(messageSid);
 
   const payload: SmsWebhookPayload = {
+    messageSid: messageSid || undefined,
     from,
     body,
     receivedAt: new Date().toISOString()

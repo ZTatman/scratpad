@@ -9,6 +9,7 @@ export type ParsedCommand =
   | { type: 'UNKNOWN' };
 
 export type SmsWebhookPayload = {
+  messageSid?: string;
   from: string;
   body: string;
   receivedAt: string;
