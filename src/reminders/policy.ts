@@ -45,7 +45,9 @@ export function ensureStatsForToday(stats: ReminderStats, now = new Date()): Rem
     lastSentAtMs: 0,
     quietHoursMessageSentToday: false,
     celebrationSentToday: false,
-    snoozeUntilMs: 0
+    snoozeUntilMs: 0,
+    lastInboundSyncAtMs: 0,
+    processedInboundActionIds: {}
   };
 }
 

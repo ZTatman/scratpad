@@ -32,6 +32,8 @@ export type ReminderStats = {
   quietHoursMessageSentToday: boolean;
   celebrationSentToday: boolean;
   snoozeUntilMs: number;
+  lastInboundSyncAtMs: number;
+  processedInboundActionIds: Record<string, number>;
 };
 
 export type SmsCommand = 'DONE' | 'ROLLOVER' | 'SNOOZE' | 'DONE_ALL' | 'BREAKDOWN';

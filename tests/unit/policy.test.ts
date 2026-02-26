@@ -19,7 +19,9 @@ const baseStats: ReminderStats = {
   lastSentAtMs: 0,
   quietHoursMessageSentToday: false,
   celebrationSentToday: false,
-  snoozeUntilMs: 0
+  snoozeUntilMs: 0,
+  lastInboundSyncAtMs: 0,
+  processedInboundActionIds: {}
 };
 
 const pendingTask: Task = {

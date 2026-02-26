@@ -21,6 +21,25 @@ import {
 import { ReminderSettings, ReminderStats, RepeatType, Task } from '@/types/models';
 
 const DEFAULT_PHONE = process.env.EXPO_PUBLIC_USER_PHONE_NUMBER || '';
+const INBOUND_SYNC_COOLDOWN_MS = 3 * 60 * 1000;
+const PROCESSED_ACTION_TTL_MS = 24 * 60 * 60 * 1000;
+const PROCESSED_ACTION_MAX = 200;
+
+export function shouldSyncInboundActions(nowMs: number, lastSyncAtMs: number): boolean {
+  if (!lastSyncAtMs || lastSyncAtMs <= 0) return true;
+  return nowMs - lastSyncAtMs >= INBOUND_SYNC_COOLDOWN_MS;
+}
+
+export function pruneProcessedInboundActions(
+  processed: Record<string, number>,
+  nowMs: number
+): Record<string, number> {
+  const entries = Object.entries(processed)
+    .filter(([, ts]) => nowMs - ts <= PROCESSED_ACTION_TTL_MS)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, PROCESSED_ACTION_MAX);
+  return Object.fromEntries(entries);
+}
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -74,7 +93,9 @@ export const useAppStore = create<AppState>((set, get) => ({
     lastSentAtMs: 0,
     quietHoursMessageSentToday: false,
     celebrationSentToday: false,
-    snoozeUntilMs: 0
+    snoozeUntilMs: 0,
+    lastInboundSyncAtMs: 0,
+    processedInboundActionIds: {}
   },
   logs: [],
   transport: process.env.EXPO_PUBLIC_USE_MOCK_SMS === '1' ? 'mock' : 'backend',
@@ -407,24 +428,65 @@ export const useAppStore = create<AppState>((set, get) => ({
     const state = get();
     if (state.transport !== 'backend') return;
     if (!DEFAULT_PHONE) return;
+    const nowMs = Date.now();
+    if (!shouldSyncInboundActions(nowMs, state.stats.lastInboundSyncAtMs)) return;
+
+    let processedIds = pruneProcessedInboundActions(state.stats.processedInboundActionIds, nowMs);
 
     try {
       const actions = await fetchInboundActions(DEFAULT_PHONE);
-      if (actions.length === 0) return;
+      if (actions.length > 0) {
+        const actionFailureLogs: string[] = [];
+        for (const action of actions) {
+          // If already applied before, only ACK to clear server queue.
+          if (processedIds[action.id]) {
+            await ackInboundAction(DEFAULT_PHONE, action.id);
+            continue;
+          }
 
-      for (const action of actions) {
-        await get().applySmsBody(action.body);
-        await ackInboundAction(DEFAULT_PHONE, action.id);
+          try {
+            await get().applySmsBody(action.body);
+            processedIds[action.id] = nowMs;
+            processedIds = pruneProcessedInboundActions(processedIds, nowMs);
+            await ackInboundAction(DEFAULT_PHONE, action.id);
+          } catch (error) {
+            const message = error instanceof Error ? error.message : 'unknown_error';
+            actionFailureLogs.push(`sync_action_failed:${action.id}:${message}`);
+          }
+        }
+
+        if (actionFailureLogs.length > 0) {
+          set((current) => ({
+            logs: [...current.logs.slice(-100), ...actionFailureLogs]
+          }));
+        }
       }
 
+      const latest = get().stats;
+      const nextStats: ReminderStats = {
+        ...latest,
+        lastInboundSyncAtMs: nowMs,
+        processedInboundActionIds: processedIds
+      };
+
       set((current) => ({
+        stats: nextStats,
         logs: [...current.logs.slice(-100), `synced_inbound_actions:${actions.length}`]
       }));
+      await saveStats(nextStats);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'unknown_error';
+      const latest = get().stats;
+      const nextStats: ReminderStats = {
+        ...latest,
+        lastInboundSyncAtMs: nowMs,
+        processedInboundActionIds: processedIds
+      };
       set((current) => ({
+        stats: nextStats,
         logs: [...current.logs.slice(-100), `sync_inbound_failed:${message}`]
       }));
+      await saveStats(nextStats);
     }
   }
 }));

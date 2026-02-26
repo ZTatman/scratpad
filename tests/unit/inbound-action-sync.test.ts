@@ -3,6 +3,12 @@ import { InboundActionStore } from '../../server/src/store/inbound-action-store'
 import { ParsedCommand, SmsWebhookPayload } from '../../server/src/types';
 
 describe('inbound action sync', () => {
+  const originalFetch = globalThis.fetch;
+
+  afterEach(() => {
+    (globalThis as { fetch: typeof fetch }).fetch = originalFetch;
+  });
+
   const payload: SmsWebhookPayload = {
     messageSid: 'SM123',
     from: '+15550001111',
